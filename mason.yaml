@@ -1,0 +1,7 @@
+bricks:
+  page:
+    path: ./mason/page/
+  use_case:
+    path: ./mason/use_case/
+  repository:
+    path: ./mason/repository/

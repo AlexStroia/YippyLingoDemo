@@ -1,0 +1,91 @@
+# Flutter/Dart specific
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub/
+build/
+doc/api/
+ios/Flutter/App.framework/
+ios/Flutter/Flutter.framework/
+macos/Flutter/App.framework/
+macos/Flutter/Flutter.framework/
+web/flutter_service_worker.js
+web/packages/
+web/assets/Icon?
+android/key.properties
+
+# Android specific
+android/app/debug.keystore
+android/app/key.properties
+android/build/
+android/gradle/
+android/gradlew
+android/gradlew.bat
+android/local.properties
+
+# iOS specific
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Debug.xcconfig
+ios/Flutter/Release.xcconfig
+ios/Flutter/AppFrameworkInfo.plist
+ios/Flutter/flutter_export_environment.sh
+ios/Runner.xcworkspace/
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+
+# Visual Studio Code specific
+.vscode/
+*.code-workspace
+
+# IntelliJ/Android Studio specific
+*.iml
+.idea/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/libraries
+.DS_Store
+
+# Gradle specific
+**/gradle-wrapper.jar
+**/gradle-wrapper.properties
+**/gradlew
+**/gradlew.bat
+
+# Flutter/Dart analysis and test results
+**/build/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/web/flutter_service_worker.js
+**/web/packages/
+**/web/assets/Icon?
+.dart_tool/**
+.pub/**
+
+# Xcode
+**/*.mode1v3
+**/*.mode2v3
+**/*.perspectivev3
+**/xcuserdata/
+**/*.xcworkspace/
+**/*.pbxproj
+**/*.xcworkspacedata
+**/*.xccheckout
+*.xcuserstate
+
+# Android/IntelliJ IDEA
+**/*.ipr
+**/*.iws
+**/out/
+**/gradle/
+
+# Dart-specific
+**/doc/api/
+**/packages/
+**/.dart_tool/
+
+# Flutter IntelliJ
+*.iws
+*.ipr
+/.idea/
