@@ -2,11 +2,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:yippy_lingo_demo/core/utils/either_extensions.dart';
 import 'package:yippy_lingo_demo/features/get_ratings/domain/use_cases/get_ratings_use_case.dart';
 
+import '../../../mocks/mocks.dart';
+
 void main() {
   late GetRatingsUseCase useCase;
 
   setUp(() {
-    useCase = const GetRatingsUseCase();
+    useCase = GetRatingsUseCase(Mocks.mockReviewsRepository);
   });
 
   test(

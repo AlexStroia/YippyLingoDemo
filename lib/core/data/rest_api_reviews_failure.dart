@@ -1,16 +1,19 @@
 import 'package:dartz/dartz.dart';
 import 'package:yippy_lingo_demo/core/domain/model/review.dart';
+import 'package:yippy_lingo_demo/core/domain/networking/networking_client.dart';
 import 'package:yippy_lingo_demo/core/domain/repositories/reviews_repository.dart';
 
 import '../../features/get_ratings/domain/model/get_reviews_failure.dart';
 
 class RestApiReviewsRepository implements ReviewsRepository {
-  const RestApiReviewsRepository();
+  final NetworkClient client;
+
+  const RestApiReviewsRepository(this.client);
 
   @override
-  Future<Either<GetReviewsFailure, List<Review>>> getReviews({bool simulateError = false}) {
-
-    if(simulateError) {
+  Future<Either<GetReviewsFailure, List<Review>>> getReviews(
+      {bool simulateError = false}) {
+    if (simulateError) {
       return Future.delayed(
         const Duration(seconds: 1),
         () => left(const GetReviewsFailure.unknown()),

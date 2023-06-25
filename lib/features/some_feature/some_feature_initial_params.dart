@@ -1,3 +1,0 @@
-class SomeFeatureInitialParams {
-  const SomeFeatureInitialParams();
-}
