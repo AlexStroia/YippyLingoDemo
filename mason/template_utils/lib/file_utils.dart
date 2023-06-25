@@ -209,18 +209,18 @@ Future<void> ensureFeaturesFiles({
 //   }
 // }
 
-Future<void> _ensurePageTestConfigFile(String rootDir, String? feature) async {
-  if (feature == null || feature.isEmpty) {
-    return;
-  }
-  final testConfigFile = File(path_lib.join(rootDir, pagesTestConfigPath(feature))).absolute;
-
-  final exists = await testConfigFile.exists();
-  if (!exists) {
-    await testConfigFile.create(recursive: true);
-    await writeToFile(filePath: testConfigFile.path, text: featurePageTestConfigTemplate);
-  }
-}
+// Future<void> _ensurePageTestConfigFile(String rootDir, String? feature) async {
+//   if (feature == null || feature.isEmpty) {
+//     return;
+//   }
+//   final testConfigFile = File(path_lib.join(rootDir, pagesTestConfigPath(feature))).absolute;
+//
+//   final exists = await testConfigFile.exists();
+//   if (!exists) {
+//     await testConfigFile.create(recursive: true);
+//     await writeToFile(filePath: testConfigFile.path, text: featurePageTestConfigTemplate);
+//   }
+// }
 
 /// Replaces given text in file reading it at once and not line-by-line. this allows for multiline regexes to match
 Future<void> replaceAllInFileAtOnce({

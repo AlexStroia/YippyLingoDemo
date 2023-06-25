@@ -1,11 +1,11 @@
-import 'package:recase/recase.dart';
 import 'package:template_utils/file_utils.dart';
 
-String templateMockClassDefinition(
-  String className, {
-  String? mockType,
-}) =>
-    "class Mock$className extends ${mockType ?? "Mock"} implements $className {}";
+//TODO CHECK USE CASE WHY NOT WORK
+// String templateMockClassDefinition(
+//   String className, {
+//   String? mockType,
+// }) =>
+//     "class Mock$className extends ${mockType ?? "Mock"} implements $className {}";
 
 String templateImport(String package, {String as = '', bool relative = false}) {
   var pkg = relative //
@@ -37,11 +37,11 @@ RegExp getItFactoryRegex(String name) {
   );
 }
 
-String templateMockStaticField(String typeName) => "static late Mock$typeName ${typeName.camelCase};";
+//String templateMockStaticField(String typeName) => "static late Mock$typeName ${typeName.camelCase};";
 
-String templateMockFieldInit(String typeName) => "${typeName.camelCase} = Mock$typeName();";
+//String templateMockFieldInit(String typeName) => "${typeName.camelCase} = Mock$typeName();";
 
-String templateRegisterFallback(String typeName) => "registerFallbackValue(Mock$typeName());";
+//String templateRegisterFallback(String typeName) => "registerFallbackValue(Mock$typeName());";
 
 String templateRegisterFactory({
   String? interfaceName,

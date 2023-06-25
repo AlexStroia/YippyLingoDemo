@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:recase/recase.dart';
+import 'package:mason/mason.dart';
 import 'package:template_utils/file_utils.dart';
 import 'package:template_utils/replacements_utils.dart';
 
@@ -14,13 +14,12 @@ Future<void> renameTpe({
   final newFeatureName = renameParams.newFilePath.featureName;
   final oldTypeName = renameParams.oldFilePath.classNameFromFile;
   final newTypeName = renameParams.newFilePath.classNameFromFile;
-  final oldMocksFile = mocksFilePath(feature: oldFeatureName, rootDir: rootPath);
-  final newMocksFile = mocksFilePath(feature: newFeatureName, rootDir: rootPath);
+//  final oldMocksFile = mocksFilePath(feature: oldFeatureName, rootDir: rootPath);
+ // final newMocksFile = mocksFilePath(feature: newFeatureName, rootDir: rootPath);
   final appPackage = await getAppPackage(rootPath);
   var oldVariableName = oldTypeName.camelCase;
   var newVariableName = newTypeName.camelCase;
   await for (final file in allProjectDartFiles(rootDir: rootPath)) {
-    var hasMockMatch = false;
     await replaceAllInFileLineByLine(filePath: file.path, replacements: [
       //Class name
       StringReplacement(
@@ -30,29 +29,29 @@ Future<void> renameTpe({
       ),
       // remove old mocks registration
       if (oldFeatureName != newFeatureName) ...[
-        StringReplacement.string(
-          from: templateMockStaticField(oldTypeName),
-          to: '',
-          failIfNotFound: false,
-        ),
-        StringReplacement(
-          from: "${oldMocksFile.classNameFromFile}.$oldVariableName",
-          to: (match) {
-            hasMockMatch = true;
-            return '${newMocksFile.classNameFromFile}.${newVariableName}';
-          },
-          failIfNotFound: false,
-        ),
-        StringReplacement.string(
-          from: templateMockFieldInit(oldTypeName),
-          to: '',
-          failIfNotFound: false,
-        ),
-        StringReplacement.string(
-          from: templateRegisterFallback(oldTypeName),
-          to: '',
-          failIfNotFound: false,
-        ),
+        // StringReplacement.string(
+        //   from: templateMockStaticField(oldTypeName),
+        //   to: '',
+        //   failIfNotFound: false,
+        // ),
+        // StringReplacement(
+        //   from: "${oldMocksFile.classNameFromFile}.$oldVariableName",
+        //   to: (match) {
+        //     hasMockMatch = true;
+        //     return '${newMocksFile.classNameFromFile}.${newVariableName}';
+        //   },
+        //   failIfNotFound: false,
+        // ),
+        // StringReplacement.string(
+        //   from: templateMockFieldInit(oldTypeName),
+        //   to: '',
+        //   failIfNotFound: false,
+        // ),
+        // StringReplacement.string(
+        //   from: templateRegisterFallback(oldTypeName),
+        //   to: '',
+        //   failIfNotFound: false,
+        // ),
       ],
       // replace all variables
       StringReplacement(
@@ -68,22 +67,22 @@ Future<void> renameTpe({
       ),
       ...renameParams.additionalReplacements,
     ]);
-    if (oldFeatureName != newFeatureName && hasMockMatch) {
-      // adds new mocks file import to the file only if the old mock was used in the file (i.e: `Mocks.authRepository`)
-      await replaceAllInFileLineByLine(
-        filePath: file.absolute.path,
-        replacements: [
-          StringReplacement(
-            from: RegExp('import .*\/${File(oldMocksFile).fileNameWithExtension}.*'),
-            to: (match) => "${match[0]}\n${match[0]?.replaceAll(
-              "/mocks/${File(oldMocksFile).fileNameWithExtension}",
-              "/features/$newFeatureName/mocks/${File(newMocksFile).fileNameWithExtension}",
-            )}",
-            failIfNotFound: false,
-          ),
-        ],
-      );
-    }
+    // if (oldFeatureName != newFeatureName && hasMockMatch) {
+    //   // adds new mocks file import to the file only if the old mock was used in the file (i.e: `Mocks.authRepository`)
+    //   await replaceAllInFileLineByLine(
+    //     filePath: file.absolute.path,
+    //     replacements: [
+    //       StringReplacement(
+    //         from: RegExp('import .*\/${File(oldMocksFile).fileNameWithExtension}.*'),
+    //         to: (match) => "${match[0]}\n${match[0]?.replaceAll(
+    //           "/mocks/${File(oldMocksFile).fileNameWithExtension}",
+    //           "/features/$newFeatureName/mocks/${File(newMocksFile).fileNameWithExtension}",
+    //         )}",
+    //         failIfNotFound: false,
+    //       ),
+    //     ],
+    //   );
+    // }
   }
   final newFeatureComponentPath = featureComponentFilePath(feature: newFeatureName, rootDir: rootPath);
   final oldFeatureComponentPath = featureComponentFilePath(feature: oldFeatureName, rootDir: rootPath);
