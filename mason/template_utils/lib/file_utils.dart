@@ -152,62 +152,62 @@ Future<void> ensureFeaturesFiles({
   required String rootDir,
 }) async {
   await ensureFeatureComponentFile(appPackage: appPackage, feature: featureName, rootDir: rootDir);
-  await ensureMockDefinitionsFile(feature: featureName, rootDir: rootDir);
-  await ensureMocksFile(feature: featureName, rootDir: rootDir);
+  //await ensureMockDefinitionsFile(feature: featureName, rootDir: rootDir);
+ // await ensureMocksFile(feature: featureName, rootDir: rootDir);
 }
 
-/// makes sure the feature-specific mock definitions file is created, if its not, creates one
-Future<void> ensureMockDefinitionsFile({
-  HookContext? context,
-  required String? feature,
-  required String rootDir,
-}) async {
-  var featurePath = mockDefinitionsFilePath(feature: feature, rootDir: rootDir);
-  final featureFile = File(featurePath).absolute;
-  final coreFile = File(mockDefinitionsFilePath(feature: null, rootDir: rootDir)).absolute;
-  context?.logger.write("feature mocks file: ${featureFile.path}");
-  context?.logger.write("core file: ${coreFile.path}");
-  if (!await featureFile.exists()) {
-    await featureFile.create(recursive: true);
-    await writeToFile(filePath: featureFile.path, text: featureMockDefinitionsTemplate);
-  }
-}
+// /// makes sure the feature-specific mock definitions file is created, if its not, creates one
+// Future<void> ensureMockDefinitionsFile({
+//   HookContext? context,
+//   required String? feature,
+//   required String rootDir,
+// }) async {
+//   var featurePath = mockDefinitionsFilePath(feature: feature, rootDir: rootDir);
+//   final featureFile = File(featurePath).absolute;
+//   final coreFile = File(mockDefinitionsFilePath(feature: null, rootDir: rootDir)).absolute;
+//   context?.logger.write("feature mocks file: ${featureFile.path}");
+//   context?.logger.write("core file: ${coreFile.path}");
+//   if (!await featureFile.exists()) {
+//     await featureFile.create(recursive: true);
+//     await writeToFile(filePath: featureFile.path, text: featureMockDefinitionsTemplate);
+//   }
+// }
 
 /// makes sure the feature-specific mocks file is created,
 /// if its not, creates one and registers in master `mocks.dart` file
-Future<void> ensureMocksFile({
-  required String? feature,
-  required String rootDir,
-  HookContext? context,
-}) async {
-  var featurePath = mocksFilePath(feature: feature, rootDir: rootDir);
-  var filePackage = featurePath.replaceAll("$rootDir/test/", "../");
-  final featureFile = File(featurePath);
-  final coreFile = File(mocksFilePath(feature: null, rootDir: rootDir));
-  await _ensurePageTestConfigFile(rootDir, feature);
-  if (!await featureFile.exists()) {
-    await featureFile.create(recursive: true);
-    await writeToFile(filePath: featureFile.path, text: featureMocksTemplate(feature!));
-    await replaceAllInFileLineByLine(
-      filePath: coreFile.path,
-      replacements: [
-        StringReplacement.prepend(
-          before: "//DO-NOT-REMOVE IMPORTS_MOCKS",
-          text: templateImport(filePackage, relative: true),
-        ),
-      ],
-    );
-    await replaceAllInFileLineByLine(
-      filePath: coreFile.path,
-      replacements: [
-        StringReplacement.prepend(
-          before: "//DO-NOT-REMOVE FEATURE_MOCKS_INIT",
-          text: "${feature.pascalCase}Mocks.init();",
-        ),
-      ],
-    );
-  }
-}
+// Future<void> ensureMocksFile({
+//   required String? feature,
+//   required String rootDir,
+//   HookContext? context,
+// }) async {
+//   var featurePath = mocksFilePath(feature: feature, rootDir: rootDir);
+//   var filePackage = featurePath.replaceAll("$rootDir/test/", "../");
+//   final featureFile = File(featurePath);
+//   final coreFile = File(mocksFilePath(feature: null, rootDir: rootDir));
+//   await _ensurePageTestConfigFile(rootDir, feature);
+//   if (!await featureFile.exists()) {
+//     await featureFile.create(recursive: true);
+//   //  await writeToFile(filePath: featureFile.path, text: featureMocksTemplate(feature!));
+//     await replaceAllInFileLineByLine(
+//       filePath: coreFile.path,
+//       replacements: [
+//         StringReplacement.prepend(
+//           before: "//DO-NOT-REMOVE IMPORTS_MOCKS",
+//           text: templateImport(filePackage, relative: true),
+//         ),
+//       ],
+//     );
+//     await replaceAllInFileLineByLine(
+//       filePath: coreFile.path,
+//       replacements: [
+//         StringReplacement.prepend(
+//           before: "//DO-NOT-REMOVE FEATURE_MOCKS_INIT",
+//           text: "${feature.pascalCase}Mocks.init();",
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 Future<void> _ensurePageTestConfigFile(String rootDir, String? feature) async {
   if (feature == null || feature.isEmpty) {

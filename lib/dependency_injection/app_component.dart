@@ -1,1 +1,3 @@
+//DO-NOT-REMOVE APP_COMPONENT_IMPORTS
+
 class AppComponent {}

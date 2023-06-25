@@ -1,3 +1,4 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:{{{app_package}}}/core/utils/mvp_extensions.dart';
 import 'package:{{{app_package}}}/{{{import_path}}}/{{{presentation_model_file_name}}}';

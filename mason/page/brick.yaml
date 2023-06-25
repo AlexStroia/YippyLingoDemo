@@ -22,7 +22,7 @@ vars:
   feature_name:
     type: string
     description: "What is the name of the feature?"
-    default: "circles"
+    default: "default"
     prompt: "Feature name (in snake_case): "
 
   subdirectory:

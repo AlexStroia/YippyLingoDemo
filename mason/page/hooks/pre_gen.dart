@@ -3,15 +3,15 @@ import "package:template_utils/template_utils.dart";
 
 Future<void> run(HookContext context) async {
   final rootDir = projectRootDir(context.vars["root_folder_path"]);
-  var pageName = (context.vars["page_name"] as String? ?? "").trim().pascalCase;
+  var pageName = (context.vars["name"] as String? ?? "").trim().pascalCase;
   final featureName = (context.vars["feature_name"] as String? ?? "").trim().snakeCase;
   var subdirectory = (context.vars["subdirectory"] as String? ?? "").trim();
 
   if (pageName.isEmpty) {
-    throw "Cannot use empty name for page_name";
+    throw "Cannot use empty name for page_name ${context.vars}";
   }
   if (featureName.isEmpty) {
-    throw "Cannot use empty name for feature_name";
+    throw "Cannot use empty name for feature_name ${context.vars["feature_name"]}";
   }
 
   final stem = pageName.replaceAll(RegExp(r"Page$"), "");
