@@ -12,11 +12,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
+  dartz: ^0.10.1
   flutter_lints: ^2.0.0
 
   # architecture
@@ -27,13 +23,17 @@ dev_dependencies:
   get_it: ^7.6.0
 
   # functional programming, used for Either type
-  dartz: 0.10.1
 
   # logger:
   logger: ^1.3.0
 
   # equatable:
   equatable: ^2.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
 flutter:
   uses-material-design: true
 

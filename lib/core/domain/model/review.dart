@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 class Review extends Equatable {
-
   final String id;
   final String title;
   final String description;
@@ -18,7 +17,6 @@ class Review extends Equatable {
     required this.timestamp,
   });
 
-
   factory Review.empty() {
     return const Review(
       id: '',
@@ -30,11 +28,6 @@ class Review extends Equatable {
     );
   }
 
-
-
-
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
-
+  List<Object?> get props => [id, title, description, rating, owner, timestamp];
 }

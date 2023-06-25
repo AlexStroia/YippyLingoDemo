@@ -1,7 +1,5 @@
 import 'package:yippy_lingo_demo/features/some_feature/some_feature_initial_params.dart';
 
-
-
 /// Model used by presenter, contains fields that are relevant to presenters and implements ViewModel to expose data to view (page)
 class SomeFeaturePresentationModel implements SomeFeatureViewModel {
   /// Creates the initial state

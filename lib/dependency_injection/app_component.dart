@@ -1,3 +1,1 @@
-class AppComponent {
-
-}
+class AppComponent {}
