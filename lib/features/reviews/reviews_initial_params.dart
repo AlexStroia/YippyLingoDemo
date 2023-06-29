@@ -1,0 +1,3 @@
+class ReviewsInitialParams {
+  const ReviewsInitialParams();
+}

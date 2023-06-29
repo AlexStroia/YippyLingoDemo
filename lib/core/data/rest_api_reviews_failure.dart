@@ -3,7 +3,7 @@ import 'package:yippy_lingo_demo/core/domain/model/review.dart';
 import 'package:yippy_lingo_demo/core/domain/networking/networking_client.dart';
 import 'package:yippy_lingo_demo/core/domain/repositories/reviews_repository.dart';
 
-import '../../features/get_ratings/domain/model/get_reviews_failure.dart';
+import '../domain/model/get_reviews_failure.dart';
 
 class RestApiReviewsRepository implements ReviewsRepository {
   final NetworkClient client;
