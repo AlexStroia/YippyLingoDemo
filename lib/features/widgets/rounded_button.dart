@@ -20,7 +20,7 @@ class RoundedButton extends StatelessWidget {
     final fonts = theme.fonts;
 
     return Opacity(
-      opacity: onTap == null ? .5 : 1,
+      opacity: onTap == null ? 0.5 : 1,
       child: Material(
         borderRadius: BorderRadius.circular(32),
         color: style == YipppyButtonSize.filled ? colors.orange : colors.light,
@@ -28,35 +28,26 @@ class RoundedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(32),
           onTap: onTap,
           child: Container(
-            width: double.infinity,
+            height: 54,
+            alignment: Alignment.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(32),
-              color: style == YipppyButtonSize.filled
-                  ? colors.orange
-                  : colors.light
+              color: style == YipppyButtonSize.filled ? colors.orange : colors.light,
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 15,
-                horizontal: 2
-              ),
-              child: Text(
-                title,
-                textAlign: TextAlign.center,
-                style: fonts.h3.copyWith(
-                    color: style == YipppyButtonSize.filled
-                        ? colors.light
-                        : colors
-                        .black), //fonts.h3.copyWith(color: colors.white),
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: fonts.p1.copyWith(
+                color: style == YipppyButtonSize.filled ? colors.light : colors.black,
               ),
             ),
           ),
         ),
       ),
     );
+
   }
 }
-
 
 enum YipppyButtonSize {
   filled,

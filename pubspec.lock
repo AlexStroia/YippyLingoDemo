@@ -163,6 +163,11 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -187,6 +192,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  go_router:
+    dependency: "direct main"
+    description:
+      name: go_router
+      sha256: "1531542666c2d052c44bbf6e2b48011bf3771da0404b94c60eabec1228a62906"
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.0.0"
+  golden_toolkit:
+    dependency: "direct main"
+    description:
+      name: golden_toolkit
+      sha256: "8f74adab33154fe7b731395782797021f97d2edc52f7bfb85ff4f1b5c4a215f0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.15.0"
   http:
     dependency: "direct main"
     description:
@@ -320,6 +341,14 @@ packages:
     description:
       name: package_config
       sha256: "1c5b77ccc91e4823a5af61ee74e6b972db1ef98c2ff5a18d3161c982a55448bd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
+  page_view_dot_indicator:
+    dependency: "direct main"
+    description:
+      name: page_view_dot_indicator
+      sha256: "072aa63f4fe94351d921ea0f83ae86089aed9b53a624ae34317e96caff73a635"
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"

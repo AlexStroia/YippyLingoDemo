@@ -3,12 +3,13 @@ import 'package:yippy_lingo_demo/features/reviews/reviews_initial_params.dart';
 import 'package:yippy_lingo_demo/features/reviews/reviews_presentation_model.dart';
 import 'package:yippy_lingo_demo/features/reviews/reviews_presenter.dart';
 
-import '../mocks/reviews_mock_definitions.dart';
+import '../../../mocks/mock_definitions.dart';
+import '../../../mocks/mocks.dart';
 
 void main() {
   late ReviewsPresentationModel model;
   late ReviewsPresenter presenter;
-  late MockReviewsNavigator navigator;
+  late MockAppNavigator navigator;
 
   test(
     'sample test',
@@ -19,10 +20,11 @@ void main() {
 
   setUp(() {
     model = ReviewsPresentationModel.initial(const ReviewsInitialParams());
-    navigator = MockReviewsNavigator();
+    navigator = MockAppNavigator();
     presenter = ReviewsPresenter(
       model,
       navigator,
+      Mocks.mockGetReviesUseCase,
     );
   });
 }

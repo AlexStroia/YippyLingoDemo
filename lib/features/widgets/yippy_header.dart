@@ -22,7 +22,7 @@ class YippyHeader extends StatelessWidget {
           style: theme.fonts.h2.copyWith(color: colors.orange),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 8,),
+        const SizedBox(height: 16,),
         if (highlight != null)
           Center(child:Text.rich(
              TextSpan(

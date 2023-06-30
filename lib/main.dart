@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yippy_lingo_demo/dependency_injection/app_component.dart';
-import 'package:yippy_lingo_demo/features/reviews/reviews_initial_params.dart';
-import 'package:yippy_lingo_demo/features/reviews/reviews_page.dart';
+import 'package:yippy_lingo_demo/router/app_router.dart';
 import 'package:yippy_lingo_demo/theme/app_theme.dart';
 
 Future<void> main() async {
@@ -16,10 +15,10 @@ class YippyLingoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'YippyLingo',
-      theme:  Theme.of(context).copyWith(extensions: [AppTheme()]),
-      home: getIt<ReviewsPage>(param1: const ReviewsInitialParams()));
+    final router = getIt<AppRouter>();
+    return MaterialApp.router(
+      theme: Theme.of(context).copyWith(extensions: [AppTheme()]),
+      routerConfig: router,
+    );
   }
-
 }
