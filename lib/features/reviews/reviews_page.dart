@@ -25,7 +25,7 @@ class ReviewsPage extends StatefulWidget with HasPresenter<ReviewsPresenter> {
 class _ReviewsPageState extends State<ReviewsPage>
     with PresenterStateMixin<ReviewsViewModel, ReviewsPresenter, ReviewsPage> {
   final PageController pageController = PageController(
-    viewportFraction: 0.8, // Adjust this value to control the item size
+    viewportFraction: 0.7, // Adjust this value to control the item size
     initialPage: 0, // Set a large initial page to create the infinite effect
   );
 
@@ -39,62 +39,79 @@ class _ReviewsPageState extends State<ReviewsPage>
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<AppTheme>()!;
     final colors = theme.colors;
-    return Scaffold(
-        body: SafeArea(
-            child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: stateObserver(
-                  builder: (context, state) => Column(children: [
-                    const YippyHeader(
-                      title: 'Pourquoi Yoopala ?',
-                      subtitle: 'Nous vous réservons nos',
-                      highlight: 'meilleurs profils.',
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.55,
-                        child: RoundedButton(
-                          title: 'Trouver une nounou',
-                          onTap: () {},
-                        )),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    SizedBox(
-                        height: 416,
-                        child: RoundedContainer(
-                            color: Colors.grey[200],
-                            child: Container(
-                                margin:
-                                    const EdgeInsets.symmetric(vertical: 32),
-                                child: PageView.builder(
-                                  itemCount: state.reviews.length,
-                                  controller: pageController,
-                                  onPageChanged: presenter.onPageChanged,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    final review = state.reviews[index];
-                                    return ProfileCard(
-                                      review: review,
-                                    );
-                                  },
-                                  scrollDirection: Axis.horizontal,
-                                )))),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: PageViewDotIndicator(
-                        currentItem: state.currentPage,
-                        count: 5,
-                        unselectedColor: Colors.grey[200]!,
-                        selectedColor: colors.orange,
-                        duration: const Duration(milliseconds: 200),
-                        boxShape: BoxShape.circle,
-                      ),
-                    ),
-                  ]),
-                ))));
+    presenter.getReviews();
+    return LayoutBuilder(
+        builder: (context, constraints) => stateObserver(
+            builder: (context, state) => Scaffold(
+                floatingActionButton: PageViewDotIndicator(
+                  currentItem: state.currentPage,
+                  count: 5,
+                  unselectedColor: Colors.grey[200]!,
+                  selectedColor: colors.orange,
+                  duration: const Duration(milliseconds: 200),
+                  boxShape: BoxShape.circle,
+                ),
+                body: SafeArea(
+                    child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                      constraints:
+                          BoxConstraints(minHeight: constraints.maxHeight),
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: state.isLoading
+                              ? Center(
+                                  child: CircularProgressIndicator(
+                                  color: colors.orange,
+                                ))
+                              : Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                      const YippyHeader(
+                                        title: 'Pourquoi Yoopala ?',
+                                        subtitle: 'Nous vous réservons nos',
+                                        highlight: 'meilleurs profils.',
+                                      ),
+                                      const SizedBox(
+                                        height: 40,
+                                      ),
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.55,
+                                          child: RoundedButton(
+                                            title: 'Trouver une nounou',
+                                            onTap: () {},
+                                          )),
+                                      const SizedBox(
+                                        height: 24,
+                                      ),
+                                      RoundedContainer(
+                                          color: Colors.grey[200],
+                                          child: Container(
+                                              height: 416,
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 32),
+                                              child: PageView.builder(
+                                                itemCount: state.reviews.length,
+                                                controller: pageController,
+                                                onPageChanged:
+                                                    presenter.onPageChanged,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  final review =
+                                                      state.reviews[index];
+                                                  return ProfileCard(
+                                                    review: review,
+                                                  );
+                                                },
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                              ))),
+                                      //   const Spacer(),
+                                    ]))),
+                )))));
   }
 }

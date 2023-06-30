@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-
   Color get orange => const Color(0xffFF9E1B);
-
 
   Color get black => const Color(0xff000000);
 

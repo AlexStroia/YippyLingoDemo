@@ -15,7 +15,7 @@ Future<void> renameTpe({
   final oldTypeName = renameParams.oldFilePath.classNameFromFile;
   final newTypeName = renameParams.newFilePath.classNameFromFile;
 //  final oldMocksFile = mocksFilePath(feature: oldFeatureName, rootDir: rootPath);
- // final newMocksFile = mocksFilePath(feature: newFeatureName, rootDir: rootPath);
+  // final newMocksFile = mocksFilePath(feature: newFeatureName, rootDir: rootPath);
   final appPackage = await getAppPackage(rootPath);
   var oldVariableName = oldTypeName.camelCase;
   var newVariableName = newTypeName.camelCase;
@@ -61,8 +61,10 @@ Future<void> renameTpe({
       ),
       // replace all import paths
       StringReplacement.string(
-        from: renameParams.oldFilePath.importPath(rootPath, appPackage: appPackage),
-        to: renameParams.newFilePath.importPath(rootPath, appPackage: appPackage),
+        from: renameParams.oldFilePath
+            .importPath(rootPath, appPackage: appPackage),
+        to: renameParams.newFilePath
+            .importPath(rootPath, appPackage: appPackage),
         failIfNotFound: false,
       ),
       ...renameParams.additionalReplacements,
@@ -84,31 +86,38 @@ Future<void> renameTpe({
     //   );
     // }
   }
-  final newFeatureComponentPath = featureComponentFilePath(feature: newFeatureName, rootDir: rootPath);
-  final oldFeatureComponentPath = featureComponentFilePath(feature: oldFeatureName, rootDir: rootPath);
-  if (newFeatureComponentPath != oldFeatureComponentPath && File(newFeatureComponentPath).existsSync()) {
+  final newFeatureComponentPath =
+      featureComponentFilePath(feature: newFeatureName, rootDir: rootPath);
+  final oldFeatureComponentPath =
+      featureComponentFilePath(feature: oldFeatureName, rootDir: rootPath);
+  if (newFeatureComponentPath != oldFeatureComponentPath &&
+      File(newFeatureComponentPath).existsSync()) {
     final factories = <String, String>{};
 
     /// remove old factories
     var regex = getItFactoryRegex(newTypeName);
-    await replaceAllInFileAtOnce(filePath: oldFeatureComponentPath, replacements: [
-      StringReplacement(
-        from: regex,
-        to: (match) {
-          final allGroups = match.groups(List.generate(match.groupCount, (index) => index + 1));
+    await replaceAllInFileAtOnce(
+        filePath: oldFeatureComponentPath,
+        replacements: [
+          StringReplacement(
+            from: regex,
+            to: (match) {
+              final allGroups = match.groups(
+                  List.generate(match.groupCount, (index) => index + 1));
 
-          /// retrieves '//DO-NOT-REMOVE' comment before which the factory was registered
-          final comment = allGroups.firstWhere((element) => (element ?? '').trim().startsWith(RegExp(r"//\s*DO")))!;
+              /// retrieves '//DO-NOT-REMOVE' comment before which the factory was registered
+              final comment = allGroups.firstWhere((element) =>
+                  (element ?? '').trim().startsWith(RegExp(r"//\s*DO")))!;
 
-          /// match[1] contains the factory code
-          factories[comment] = match[1]!;
+              /// match[1] contains the factory code
+              factories[comment] = match[1]!;
 
-          /// remove just factory from result, leaving everything else
-          return allGroups.sublist(1).map((e) => e ?? '').join("");
-        },
-        failIfNotFound: false,
-      ),
-    ]);
+              /// remove just factory from result, leaving everything else
+              return allGroups.sublist(1).map((e) => e ?? '').join("");
+            },
+            failIfNotFound: false,
+          ),
+        ]);
 
     /// add new factories
     await replaceAllInFileAtOnce(

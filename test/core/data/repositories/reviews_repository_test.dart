@@ -6,17 +6,15 @@ import 'package:yippy_lingo_demo/core/domain/model/get_reviews_failure.dart';
 
 import '../../../mocks/mocks.dart';
 
-
 void main() {
   late ReviewsRepository repository;
 
   setUp(() {
-    repository =  RestApiReviewsRepository(Mocks.mockHttpClient);
+    repository = RestApiReviewsRepository(Mocks.mockHttpClient);
   });
 
   group('getReviews', () {
     test('should return a list of reviews when there is no error', () async {
-
       // Act
       final result = await repository.getReviews();
 
@@ -24,7 +22,8 @@ void main() {
       expect(result.getOrElse(() => []), isNotEmpty);
     });
 
-    test('should return GetReviewsFailure.unknown() when simulateError is true', () async {
+    test('should return GetReviewsFailure.unknown() when simulateError is true',
+        () async {
       // Arrange
       // Act
       final result = await repository.getReviews(simulateError: true);

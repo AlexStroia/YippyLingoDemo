@@ -32,9 +32,11 @@ Stream<File> allFilesInDir(String path) {
 }
 
 extension StringUtils on String {
-  String get fileNameWithExtension => substring(lastIndexOf(Platform.pathSeparator) + 1);
+  String get fileNameWithExtension =>
+      substring(lastIndexOf(Platform.pathSeparator) + 1);
 
-  String get fileNameWithoutExtension => fileNameWithExtension.removedFileExtension;
+  String get fileNameWithoutExtension =>
+      fileNameWithExtension.removedFileExtension;
 
   String suffixed(String suffix) {
     if (endsWith(suffix)) {
@@ -62,17 +64,22 @@ extension StringUtils on String {
     }
   }
 
-  String get classNameFromFile => File(this).fileNameWithoutExtension.pascalCase;
+  String get classNameFromFile =>
+      File(this).fileNameWithoutExtension.pascalCase;
 
-  String get libDir => path_lib.absolute(path_lib.join(projectRootDir(this), "lib"));
+  String get libDir =>
+      path_lib.absolute(path_lib.join(projectRootDir(this), "lib"));
 
-  String get testDir => path_lib.absolute(path_lib.join(projectRootDir(this), "test"));
+  String get testDir =>
+      path_lib.absolute(path_lib.join(projectRootDir(this), "test"));
 
   String get removedFileExtension => substring(0, lastIndexOf("."));
 
   String get featureName {
     var absolute = path_lib.absolute(this);
-    return absolute.contains("lib/features") ? RegExp("lib/features/(.+?)/").firstMatch(absolute)?.group(1) ?? "" : "";
+    return absolute.contains("lib/features")
+        ? RegExp("lib/features/(.+?)/").firstMatch(absolute)?.group(1) ?? ""
+        : "";
   }
 
   String relativePathTo(String path) {
@@ -81,8 +88,10 @@ extension StringUtils on String {
 }
 
 extension DartFilesInDir on Directory {
-  Stream<File> get allDartFiles =>
-      this.list(recursive: true).where((it) => it is File && it.path.endsWith(".dart")).map((event) => event as File);
+  Stream<File> get allDartFiles => this
+      .list(recursive: true)
+      .where((it) => it is File && it.path.endsWith(".dart"))
+      .map((event) => event as File);
 }
 
 String featureComponentFilePath({
@@ -109,7 +118,8 @@ String mocksFilePath({
         ? '$rootDir/test/mocks/mocks.dart'
         : '$rootDir/test/features/$feature/mocks/${feature}_mocks.dart';
 
-String pagesTestConfigPath(String feature) => 'test/features/$feature/pages/flutter_test_config.dart';
+String pagesTestConfigPath(String feature) =>
+    'test/features/$feature/pages/flutter_test_config.dart';
 
 /// makes sure the feature-specific getIt registration index file is created,
 /// if its not, creates one and registers in master `app_component.dart` file
@@ -118,19 +128,23 @@ Future<void> ensureFeatureComponentFile({
   required String? feature,
   required String rootDir,
 }) async {
-  var featurePath = featureComponentFilePath(feature: feature, rootDir: rootDir);
+  var featurePath =
+      featureComponentFilePath(feature: feature, rootDir: rootDir);
   var filePackage = featurePath.replaceAll("$rootDir/lib/features/", "");
   final featureFile = File(featurePath);
-  final coreFile = File(featureComponentFilePath(rootDir: rootDir, feature: null));
+  final coreFile =
+      File(featureComponentFilePath(rootDir: rootDir, feature: null));
   if (!await featureFile.exists()) {
     await featureFile.create(recursive: true);
-    await writeToFile(filePath: featureFile.path, text: featureComponentTemplate(appPackage));
+    await writeToFile(
+        filePath: featureFile.path, text: featureComponentTemplate(appPackage));
     await replaceAllInFileLineByLine(
       filePath: coreFile.path,
       replacements: [
         StringReplacement.prepend(
           before: "//DO-NOT-REMOVE APP_COMPONENT_IMPORTS",
-          text: "${templateImport("$appPackage/features/$filePackage", as: feature ?? '')}",
+          text:
+              "${templateImport("$appPackage/features/$filePackage", as: feature ?? '')}",
         ),
       ],
     );
@@ -151,9 +165,10 @@ Future<void> ensureFeaturesFiles({
   required String featureName,
   required String rootDir,
 }) async {
-  await ensureFeatureComponentFile(appPackage: appPackage, feature: featureName, rootDir: rootDir);
+  await ensureFeatureComponentFile(
+      appPackage: appPackage, feature: featureName, rootDir: rootDir);
   //await ensureMockDefinitionsFile(feature: featureName, rootDir: rootDir);
- // await ensureMocksFile(feature: featureName, rootDir: rootDir);
+  // await ensureMocksFile(feature: featureName, rootDir: rootDir);
 }
 
 // /// makes sure the feature-specific mock definitions file is created, if its not, creates one
@@ -234,7 +249,8 @@ Future<void> replaceAllInFileAtOnce({
   try {
     var fileContents = await File(filePath).readAsString();
     writeSink = tmpFile.openWrite();
-    final foundReplacementsMap = Map.fromEntries(replacements.map((e) => MapEntry(e, false)));
+    final foundReplacementsMap =
+        Map.fromEntries(replacements.map((e) => MapEntry(e, false)));
     for (final rep in replacements) {
       if (fileContents.contains(rep.from)) {
         foundReplacementsMap[rep] = true;
@@ -242,10 +258,12 @@ Future<void> replaceAllInFileAtOnce({
       }
     }
     writeSink.write(fileContents);
-    final notFoundReplacements =
-        foundReplacementsMap.entries.where((element) => element.key.failIfNotFound && !element.value);
+    final notFoundReplacements = foundReplacementsMap.entries
+        .where((element) => element.key.failIfNotFound && !element.value);
     if (notFoundReplacements.isNotEmpty) {
-      var notFoundReplacementsList = foundReplacementsMap.entries.map((entry) => entry.key.from).join("\n");
+      var notFoundReplacementsList = foundReplacementsMap.entries
+          .map((entry) => entry.key.from)
+          .join("\n");
       throw "couldn't find following replacements: $notFoundReplacementsList\n in file: $filePath";
     }
   } catch (ex) {
@@ -275,7 +293,8 @@ Future<void> replaceAllInFileLineByLine({
   try {
     final readStream = readFileLines(filePath);
     writeSink = tmpFile.openWrite();
-    final foundReplacementsMap = Map.fromEntries(replacements.map((e) => MapEntry(e, false)));
+    final foundReplacementsMap =
+        Map.fromEntries(replacements.map((e) => MapEntry(e, false)));
     await for (final line in readStream) {
       var newLine = line;
       for (final rep in replacements) {
@@ -286,10 +305,12 @@ Future<void> replaceAllInFileLineByLine({
       }
       writeSink.writeln(newLine);
     }
-    final notFoundReplacements =
-        foundReplacementsMap.entries.where((element) => element.key.failIfNotFound && !element.value);
+    final notFoundReplacements = foundReplacementsMap.entries
+        .where((element) => element.key.failIfNotFound && !element.value);
     if (notFoundReplacements.isNotEmpty) {
-      var notFoundReplacementsList = foundReplacementsMap.entries.map((entry) => entry.key.from).join("\n");
+      var notFoundReplacementsList = foundReplacementsMap.entries
+          .map((entry) => entry.key.from)
+          .join("\n");
       throw "couldn't find following replacements: $notFoundReplacementsList\n in file: $filePath";
     }
   } catch (ex) {
@@ -319,8 +340,10 @@ Future<void> writeToFile({
   await tmpFile.rename(filePath);
 }
 
-Stream<String> readFileLines(String path) =>
-    File(path).openRead().transform(utf8.decoder).transform(const LineSplitter());
+Stream<String> readFileLines(String path) => File(path)
+    .openRead()
+    .transform(utf8.decoder)
+    .transform(const LineSplitter());
 
 class StringReplacement {
   final Pattern from;
@@ -389,7 +412,8 @@ String relativeRootDir(String rootDirPath) {
 }
 
 /// retrieves app package by reading pubspec.yaml in the [rootPath]
-Future<String> getAppPackage(String rootPath, {String pubspecFileName = "pubspec.yaml"}) async {
+Future<String> getAppPackage(String rootPath,
+    {String pubspecFileName = "pubspec.yaml"}) async {
   var pubspecPath = "$rootPath${Platform.pathSeparator}$pubspecFileName";
   await for (final line in readFileLines(pubspecPath)) {
     var regExp = RegExp(r"\s*name:\s*(.*)");

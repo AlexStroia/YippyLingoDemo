@@ -4,7 +4,8 @@ import "package:template_utils/template_utils.dart";
 Future<void> run(HookContext context) async {
   final rootDir = projectRootDir(context.vars["root_folder_path"]);
   var pageName = (context.vars["name"] as String? ?? "").trim().pascalCase;
-  final featureName = (context.vars["feature_name"] as String? ?? "").trim().snakeCase;
+  final featureName =
+      (context.vars["feature_name"] as String? ?? "").trim().snakeCase;
   var subdirectory = (context.vars["subdirectory"] as String? ?? "").trim();
 
   if (pageName.isEmpty) {
@@ -72,14 +73,18 @@ Future<void> run(HookContext context) async {
     // absolute paths
     "page_absolute_path": "$relativeLibFeaturePath/$pageFileName",
     "presenter_absolute_path": "$relativeLibFeaturePath/$presenterFileName",
-    "presentation_model_absolute_path": "$relativeLibFeaturePath/$presentationModelFileName",
+    "presentation_model_absolute_path":
+        "$relativeLibFeaturePath/$presentationModelFileName",
     "navigator_absolute_path": "$relativeLibFeaturePath/$navigatorFileName",
-    "initial_params_absolute_path": "$relativeLibFeaturePath/$initialParamsFileName",
-    "page_test_absolute_path": "$relativeTestFeaturePath/pages/$pageTestFileName",
-    "presenter_test_absolute_path": "$relativeTestFeaturePath/presenters/$presenterTestFileName",
+    "initial_params_absolute_path":
+        "$relativeLibFeaturePath/$initialParamsFileName",
+    "page_test_absolute_path":
+        "$relativeTestFeaturePath/pages/$pageTestFileName",
+    "presenter_test_absolute_path":
+        "$relativeTestFeaturePath/presenters/$presenterTestFileName",
     "feature": featureName,
     "root_dir": rootDir,
   };
-  context.logger
-      .info("Generating page, variables: ${context.vars.entries.map((it) => "${it.key} -> ${it.value}").join("\n")}");
+  context.logger.info(
+      "Generating page, variables: ${context.vars.entries.map((it) => "${it.key} -> ${it.value}").join("\n")}");
 }

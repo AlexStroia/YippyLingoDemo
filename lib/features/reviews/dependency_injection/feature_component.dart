@@ -14,7 +14,7 @@ void configureDependencies() {
 void _configureGeneralDependencies() {
   // ignore: unnecessary_statements
   getIt
-  //DO-NOT-REMOVE GENERAL_DEPS_GET_IT_CONFIG
+      //DO-NOT-REMOVE GENERAL_DEPS_GET_IT_CONFIG
       ;
 }
 
@@ -22,7 +22,7 @@ void _configureGeneralDependencies() {
 void _configureRepositories() {
   // ignore: unnecessary_statements
   getIt
-  //DO-NOT-REMOVE REPOSITORIES_GET_IT_CONFIG
+      //DO-NOT-REMOVE REPOSITORIES_GET_IT_CONFIG
       ;
 }
 
@@ -30,7 +30,7 @@ void _configureRepositories() {
 void _configureStores() {
   // ignore: unnecessary_statements
   getIt
-  //DO-NOT-REMOVE STORES_GET_IT_CONFIG
+      //DO-NOT-REMOVE STORES_GET_IT_CONFIG
       ;
 }
 
@@ -38,7 +38,7 @@ void _configureStores() {
 void _configureUseCases() {
   // ignore: unnecessary_statements
   getIt
-  //DO-NOT-REMOVE USE_CASES_GET_IT_CONFIG
+      //DO-NOT-REMOVE USE_CASES_GET_IT_CONFIG
       ;
 }
 
@@ -46,6 +46,6 @@ void _configureUseCases() {
 void _configureMvp() {
   // ignore: unnecessary_statements
   getIt
-  //DO-NOT-REMOVE MVP_GET_IT_CONFIG
+      //DO-NOT-REMOVE MVP_GET_IT_CONFIG
       ;
 }

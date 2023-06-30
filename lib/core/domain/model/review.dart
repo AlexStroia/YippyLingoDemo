@@ -14,14 +14,13 @@ class Review extends Equatable {
   });
 
   factory Review.empty() {
-    return const Review(
-      id: '',
-      name: '',
-      description: '',
-      age: ''
-    );
+    return const Review(id: '', name: '', description: '', age: '');
   }
 
   @override
-  List<Object?> get props => [id, age, description,];
+  List<Object?> get props => [
+        id,
+        age,
+        description,
+      ];
 }

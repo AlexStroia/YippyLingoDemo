@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:yippy_lingo_demo/theme/app_theme.dart';
 
@@ -16,28 +15,32 @@ class YippyHeader extends StatelessWidget {
     final fonts = theme.fonts;
     final colors = theme.colors;
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           title,
           style: theme.fonts.h2.copyWith(color: colors.orange),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 16,),
+        const SizedBox(
+          height: 16,
+        ),
         if (highlight != null)
-          Center(child:Text.rich(
-             TextSpan(
-              text: subtitle,
-              style: fonts.h1.copyWith(color: colors.black),
-              children: <TextSpan>[
-                TextSpan(
-                  text: ' $highlight',
-                  style: fonts.h1.copyWith(fontWeight: FontWeight.bold),
-                ),
-              ],
+          Center(
+            child: Text.rich(
+              TextSpan(
+                text: subtitle,
+                style: fonts.h1.copyWith(color: colors.black),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: ' $highlight',
+                    style: fonts.h1.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-
-          ),)
+          )
         else
           Text(
             subtitle,

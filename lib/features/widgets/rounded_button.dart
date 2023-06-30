@@ -32,20 +32,23 @@ class RoundedButton extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(32),
-              color: style == YipppyButtonSize.filled ? colors.orange : colors.light,
+              color: style == YipppyButtonSize.filled
+                  ? colors.orange
+                  : colors.light,
             ),
             child: Text(
               title,
               textAlign: TextAlign.center,
               style: fonts.p1.copyWith(
-                color: style == YipppyButtonSize.filled ? colors.light : colors.black,
+                color: style == YipppyButtonSize.filled
+                    ? colors.light
+                    : colors.black,
               ),
             ),
           ),
         ),
       ),
     );
-
   }
 }
 

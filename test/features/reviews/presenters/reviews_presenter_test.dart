@@ -13,7 +13,7 @@ void main() {
 
   test(
     'sample test',
-        () {
+    () {
       expect(presenter, isNotNull); // TODO implement this
     },
   );

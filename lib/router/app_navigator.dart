@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:yippy_lingo_demo/core/domain/model/displayable_failure.dart';
-import 'package:yippy_lingo_demo/features/widgets/error_widget.dart' as error_widget;
+import 'package:yippy_lingo_demo/features/widgets/error_widget.dart'
+    as error_widget;
 import 'package:yippy_lingo_demo/features/widgets/error_widget.dart';
 import 'package:yippy_lingo_demo/router/app_router.dart';
 
@@ -60,7 +61,8 @@ class AppNavigator {
   Future<void> showError(
     DisplayableFailure failure, {
     BuildContext? context,
-    error_widget.ErrorDialogShowMode showMode = error_widget.ErrorDialogShowMode.ignoreIfAlreadyVisible,
+    error_widget.ErrorDialogShowMode showMode =
+        error_widget.ErrorDialogShowMode.ignoreIfAlreadyVisible,
     VoidCallback? onDismiss,
   }) {
     if (key.currentState != null) {

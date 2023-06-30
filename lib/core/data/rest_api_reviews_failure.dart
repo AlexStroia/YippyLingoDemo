@@ -24,31 +24,31 @@ class RestApiReviewsRepository implements ReviewsRepository {
       Review(
         id: '0',
         name: 'John Doe',
-        description: 'Great Experience',
+        description: 'Facilisis pulvinar egestas pulvinar aenean sed morbi.e',
         age: '22',
       ),
       Review(
         id: '1',
         name: 'Jane Smith',
-        description: 'Excellent service',
+        description: 'Facilisis pulvinar egestas pulvinar aenean sed morbi.',
         age: '30',
       ),
       Review(
         id: '2',
         name: 'Adam Brown',
-        description: 'Highly recommended',
+        description: 'HFacilisis pulvinar egestas pulvinar aenean sed morbi.',
         age: '28',
       ),
       Review(
         id: '3',
         name: 'Emily Davis',
-        description: 'Friendly staff',
+        description: 'Facilisis pulvinar egestas pulvinar aenean sed morbi.',
         age: '25',
       ),
       Review(
         id: '4',
         name: 'Michael Johnson',
-        description: 'Amazing quality',
+        description: 'Facilisis pulvinar egestas pulvinar aenean sed morbi.',
         age: '32',
       ),
     ];

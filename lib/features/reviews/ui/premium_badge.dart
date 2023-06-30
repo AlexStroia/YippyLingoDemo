@@ -30,10 +30,11 @@ class PremiumBadge extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8), // Space between the check icon and text
-          Text(
+          Expanded(
+              child: Text(
             'Premium',
             style: fonts.p2.copyWith(color: Colors.white), // Text style
-          ),
+          )),
         ],
       ),
     );

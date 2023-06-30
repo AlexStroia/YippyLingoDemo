@@ -17,11 +17,15 @@ class ReviewsPresenter extends Cubit<ReviewsViewModel> {
   // ignore: unused_element
   ReviewsPresentationModel get _model => state as ReviewsPresentationModel;
 
-  void getReviews() => _getReviewsUseCase.execute().doOn(success: (reviews) {
-        emit(_model.copyWith(reviews: reviews));
-      }, fail: (failure) {
-        navigator.showError(failure.displayableFailure());
-      });
+  void getReviews() {
+    emit(_model.copyWith(isLoading: true));
+    _getReviewsUseCase.execute().doOn(success: (reviews) {
+      emit(_model.copyWith(isLoading: false, reviews: reviews));
+    }, fail: (failure) {
+      emit(_model.copyWith(isLoading: false));
+      navigator.showError(failure.displayableFailure());
+    });
+  }
 
   void onPageChanged(int page) {
     emit(_model.copyWith(currentPage: page));
