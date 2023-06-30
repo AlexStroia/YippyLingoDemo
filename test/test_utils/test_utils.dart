@@ -28,12 +28,12 @@ Future<void> preparePageTests(FutureOr<void> Function() testMain) async {
   await loadAppFonts();
   await prepareAppForUnitTests();
   // ignore: do_not_use_environment
-
+  const isCi = bool.fromEnvironment('isCI');
   return AlchemistConfig.runWithConfig(
     config: const AlchemistConfig(
-      platformGoldensConfig: PlatformGoldensConfig(
-          // ignore: avoid_redundant_argument_values
-          ),
+      platformGoldensConfig:    PlatformGoldensConfig(
+      enabled: !isCi,
+    ),
     ),
     run: () async {
       return testMain();

@@ -48,7 +48,7 @@ Future<void> screenshotTest(
       setUp?.call();
 
       return GoldenTestGroup(
-        columns: 3,
+        columns: 1,
         children: (devices ?? testDevices) //
             .map(
               (it) => GoldenTestWidgetApp(
